@@ -14,7 +14,402 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_classifications: {
+        Row: {
+          buyer_id: string
+          classification: Database["public"]["Enums"]["lead_classification"]
+          created_at: string
+          id: string
+          model: string | null
+          owner_id: string
+          priority: Database["public"]["Enums"]["lead_priority"]
+          reason: string
+        }
+        Insert: {
+          buyer_id: string
+          classification: Database["public"]["Enums"]["lead_classification"]
+          created_at?: string
+          id?: string
+          model?: string | null
+          owner_id: string
+          priority: Database["public"]["Enums"]["lead_priority"]
+          reason: string
+        }
+        Update: {
+          buyer_id?: string
+          classification?: Database["public"]["Enums"]["lead_classification"]
+          created_at?: string
+          id?: string
+          model?: string | null
+          owner_id?: string
+          priority?: Database["public"]["Enums"]["lead_priority"]
+          reason?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_classifications_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "buyers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      attachments: {
+        Row: {
+          campaign_id: string | null
+          created_at: string
+          file_name: string
+          file_size: number | null
+          file_type: string | null
+          id: string
+          owner_id: string
+          storage_path: string | null
+        }
+        Insert: {
+          campaign_id?: string | null
+          created_at?: string
+          file_name: string
+          file_size?: number | null
+          file_type?: string | null
+          id?: string
+          owner_id: string
+          storage_path?: string | null
+        }
+        Update: {
+          campaign_id?: string | null
+          created_at?: string
+          file_name?: string
+          file_size?: number | null
+          file_type?: string | null
+          id?: string
+          owner_id?: string
+          storage_path?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attachments_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      buyers: {
+        Row: {
+          business_type: string | null
+          buyer_name: string | null
+          classification:
+            | Database["public"]["Enums"]["lead_classification"]
+            | null
+          company_name: string | null
+          contact_status: Database["public"]["Enums"]["contact_status"]
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          is_demo: boolean
+          last_contacted_at: string | null
+          normalized_email: string | null
+          owner_id: string
+          priority: Database["public"]["Enums"]["lead_priority"] | null
+          product: string | null
+          product_category: string | null
+          profile_url: string | null
+          source_platform: string | null
+          updated_at: string
+          validation_notes: string | null
+          validation_status: Database["public"]["Enums"]["validation_status"]
+          website: string | null
+        }
+        Insert: {
+          business_type?: string | null
+          buyer_name?: string | null
+          classification?:
+            | Database["public"]["Enums"]["lead_classification"]
+            | null
+          company_name?: string | null
+          contact_status?: Database["public"]["Enums"]["contact_status"]
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_demo?: boolean
+          last_contacted_at?: string | null
+          normalized_email?: string | null
+          owner_id: string
+          priority?: Database["public"]["Enums"]["lead_priority"] | null
+          product?: string | null
+          product_category?: string | null
+          profile_url?: string | null
+          source_platform?: string | null
+          updated_at?: string
+          validation_notes?: string | null
+          validation_status?: Database["public"]["Enums"]["validation_status"]
+          website?: string | null
+        }
+        Update: {
+          business_type?: string | null
+          buyer_name?: string | null
+          classification?:
+            | Database["public"]["Enums"]["lead_classification"]
+            | null
+          company_name?: string | null
+          contact_status?: Database["public"]["Enums"]["contact_status"]
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_demo?: boolean
+          last_contacted_at?: string | null
+          normalized_email?: string | null
+          owner_id?: string
+          priority?: Database["public"]["Enums"]["lead_priority"] | null
+          product?: string | null
+          product_category?: string | null
+          profile_url?: string | null
+          source_platform?: string | null
+          updated_at?: string
+          validation_notes?: string | null
+          validation_status?: Database["public"]["Enums"]["validation_status"]
+          website?: string | null
+        }
+        Relationships: []
+      }
+      campaign_targets: {
+        Row: {
+          buyer_id: string
+          campaign_id: string
+          created_at: string
+          id: string
+          owner_id: string
+        }
+        Insert: {
+          buyer_id: string
+          campaign_id: string
+          created_at?: string
+          id?: string
+          owner_id: string
+        }
+        Update: {
+          buyer_id?: string
+          campaign_id?: string
+          created_at?: string
+          id?: string
+          owner_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_targets_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "buyers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "campaign_targets_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaigns: {
+        Row: {
+          body: string
+          completed_at: string | null
+          created_at: string
+          delay_seconds: number
+          id: string
+          is_demo: boolean
+          name: string
+          owner_id: string
+          product_category: string | null
+          product_id: string | null
+          product_name: string
+          sending_limit: number
+          started_at: string | null
+          status: Database["public"]["Enums"]["campaign_status"]
+          subject: string
+          target_audience: string[]
+          target_countries: string[]
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          completed_at?: string | null
+          created_at?: string
+          delay_seconds?: number
+          id?: string
+          is_demo?: boolean
+          name: string
+          owner_id: string
+          product_category?: string | null
+          product_id?: string | null
+          product_name: string
+          sending_limit?: number
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"]
+          subject: string
+          target_audience?: string[]
+          target_countries?: string[]
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          completed_at?: string | null
+          created_at?: string
+          delay_seconds?: number
+          id?: string
+          is_demo?: boolean
+          name?: string
+          owner_id?: string
+          product_category?: string | null
+          product_id?: string | null
+          product_name?: string
+          sending_limit?: number
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"]
+          subject?: string
+          target_audience?: string[]
+          target_countries?: string[]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaigns_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_logs: {
+        Row: {
+          attachment_used: boolean
+          buyer_id: string | null
+          buyer_name: string | null
+          campaign_id: string | null
+          classification:
+            | Database["public"]["Enums"]["lead_classification"]
+            | null
+          company_name: string | null
+          country: string | null
+          created_at: string
+          email: string | null
+          error_message: string | null
+          id: string
+          owner_id: string
+          product: string | null
+          sent_at: string | null
+          source_platform: string | null
+          status: Database["public"]["Enums"]["email_status"]
+          subject: string | null
+        }
+        Insert: {
+          attachment_used?: boolean
+          buyer_id?: string | null
+          buyer_name?: string | null
+          campaign_id?: string | null
+          classification?:
+            | Database["public"]["Enums"]["lead_classification"]
+            | null
+          company_name?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          error_message?: string | null
+          id?: string
+          owner_id: string
+          product?: string | null
+          sent_at?: string | null
+          source_platform?: string | null
+          status: Database["public"]["Enums"]["email_status"]
+          subject?: string | null
+        }
+        Update: {
+          attachment_used?: boolean
+          buyer_id?: string | null
+          buyer_name?: string | null
+          campaign_id?: string | null
+          classification?:
+            | Database["public"]["Enums"]["lead_classification"]
+            | null
+          company_name?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          error_message?: string | null
+          id?: string
+          owner_id?: string
+          product?: string | null
+          sent_at?: string | null
+          source_platform?: string | null
+          status?: Database["public"]["Enums"]["email_status"]
+          subject?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_logs_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "buyers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_logs_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          category: string
+          created_at: string
+          customization_options: string | null
+          export_availability: string | null
+          id: string
+          is_demo: boolean
+          minimum_order_quantity: string | null
+          name: string
+          owner_id: string
+          shipping_availability: string | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          customization_options?: string | null
+          export_availability?: string | null
+          id?: string
+          is_demo?: boolean
+          minimum_order_quantity?: string | null
+          name: string
+          owner_id: string
+          shipping_availability?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          customization_options?: string | null
+          export_availability?: string | null
+          id?: string
+          is_demo?: boolean
+          minimum_order_quantity?: string | null
+          name?: string
+          owner_id?: string
+          shipping_availability?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +418,41 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      campaign_status:
+        | "draft"
+        | "ready"
+        | "running"
+        | "completed"
+        | "paused"
+        | "failed"
+      contact_status:
+        | "not_contacted"
+        | "queued"
+        | "sending"
+        | "sent"
+        | "failed"
+        | "skipped"
+      email_status:
+        | "queued"
+        | "sending"
+        | "sent"
+        | "failed"
+        | "skipped"
+        | "already_contacted"
+      lead_classification:
+        | "business_buyer"
+        | "individual_buyer"
+        | "importer"
+        | "distributor"
+        | "wholesaler"
+        | "retailer"
+      lead_priority: "high" | "low"
+      validation_status:
+        | "valid"
+        | "invalid"
+        | "incomplete"
+        | "duplicate"
+        | "already_contacted"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +579,47 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      campaign_status: [
+        "draft",
+        "ready",
+        "running",
+        "completed",
+        "paused",
+        "failed",
+      ],
+      contact_status: [
+        "not_contacted",
+        "queued",
+        "sending",
+        "sent",
+        "failed",
+        "skipped",
+      ],
+      email_status: [
+        "queued",
+        "sending",
+        "sent",
+        "failed",
+        "skipped",
+        "already_contacted",
+      ],
+      lead_classification: [
+        "business_buyer",
+        "individual_buyer",
+        "importer",
+        "distributor",
+        "wholesaler",
+        "retailer",
+      ],
+      lead_priority: ["high", "low"],
+      validation_status: [
+        "valid",
+        "invalid",
+        "incomplete",
+        "duplicate",
+        "already_contacted",
+      ],
+    },
   },
 } as const
